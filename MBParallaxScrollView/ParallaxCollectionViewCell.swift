@@ -31,7 +31,7 @@ let OffsetSpeed: CGFloat = 25.0
 class ParallaxCollectionViewCell: UICollectionViewCell {
     
     // AspectFill; 200 points.
-    @IBOutlet var imageView: UIImageView
+    @IBOutlet var imageView: UIImageView!
     
     var image: UIImage = UIImage() {
         didSet {
