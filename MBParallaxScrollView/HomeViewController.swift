@@ -52,17 +52,17 @@ class HomeViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let parallaxCell = collectionView.dequeueReusableCellWithReuseIdentifier(parallaxCellIdentifier, forIndexPath: indexPath) as ParallaxCollectionViewCell
+        let parallaxCell = collectionView.dequeueReusableCellWithReuseIdentifier(parallaxCellIdentifier, forIndexPath: indexPath) as! ParallaxCollectionViewCell
         parallaxCell.image = UIImage(named: images[indexPath.row])!
         return parallaxCell
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let visibleCells = collectionView.visibleCells() as? [ParallaxCollectionViewCell] {
-            for parallaxCell in visibleCells {
-                var yOffset = ((collectionView.contentOffset.y - parallaxCell.frame.origin.y) / ImageHeight) * OffsetSpeed
-                parallaxCell.offset(CGPointMake(0.0, yOffset))
-            }
+        guard let collectionView = self.collectionView else {return}
+        guard let visibleCells = collectionView.visibleCells() as? [ParallaxCollectionViewCell] else {return}
+        for parallaxCell in visibleCells {
+            let yOffset = ((collectionView.contentOffset.y - parallaxCell.frame.origin.y) / ImageHeight) * OffsetSpeed
+            parallaxCell.offset(CGPointMake(0.0, yOffset))
         }
     }
     
