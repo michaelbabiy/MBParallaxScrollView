@@ -28,8 +28,8 @@ import UIKit
 let ImageHeight: CGFloat = 200.0
 let OffsetSpeed: CGFloat = 25.0
 
-class ParallaxCollectionViewCell: UICollectionViewCell {
-    
+class ParallaxCollectionViewCell: UICollectionViewCell
+{
     // AspectFill; 200 points.
     @IBOutlet var imageView: UIImageView!
     
@@ -39,8 +39,8 @@ class ParallaxCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func offset(offset: CGPoint) {
-        imageView.frame = CGRectOffset(self.imageView.bounds, offset.x, offset.y)
+    func offset(_ offset: CGPoint)
+    {
+        imageView.frame = self.imageView.bounds.offsetBy(dx: offset.x, dy: offset.y)
     }
-    
 }
