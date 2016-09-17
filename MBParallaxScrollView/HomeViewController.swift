@@ -27,44 +27,49 @@ import UIKit
 
 let parallaxCellIdentifier = "parallaxCell"
 
-class HomeViewController: UICollectionViewController {
-                                
+class HomeViewController: UICollectionViewController
+{
     var images = [String]()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         setup()
     }
     
-    func setup() {
+    func setup()
+    {
         for i in 0...14 {
             images.append("\(i)@2x")
         }
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
     }
     
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
         return images.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let parallaxCell = collectionView.dequeueReusableCellWithReuseIdentifier(parallaxCellIdentifier, forIndexPath: indexPath) as! ParallaxCollectionViewCell
-        parallaxCell.image = UIImage(named: images[indexPath.row])!
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let parallaxCell = collectionView.dequeueReusableCell(withReuseIdentifier: parallaxCellIdentifier, for: indexPath) as! ParallaxCollectionViewCell
+        parallaxCell.image = UIImage(named: images[(indexPath as NSIndexPath).row])!
         return parallaxCell
     }
 
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
         guard let collectionView = self.collectionView else {return}
-        guard let visibleCells = collectionView.visibleCells() as? [ParallaxCollectionViewCell] else {return}
+        guard let visibleCells = collectionView.visibleCells as? [ParallaxCollectionViewCell] else {return}
         for parallaxCell in visibleCells {
             let yOffset = ((collectionView.contentOffset.y - parallaxCell.frame.origin.y) / ImageHeight) * OffsetSpeed
-            parallaxCell.offset(CGPointMake(0.0, yOffset))
+            parallaxCell.offset(CGPoint(x: 0.0, y: yOffset))
         }
     }
-    
 }
 
